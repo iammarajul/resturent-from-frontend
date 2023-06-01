@@ -190,6 +190,6 @@ const restaurant = ref({});
 .from_body {
     width: 100%;
     height: 80%;
-    border: solid 1px #d7d8e1;
+    border-bottom: solid 1px #d7d8e1;
 }
 </style>

@@ -26,5 +26,6 @@ import FormHeader from "./FormHeader.vue";
     border: solid 1px #d7d8e1;
     border-top: none;
     border-bottom: none;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
