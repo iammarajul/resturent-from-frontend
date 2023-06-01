@@ -1,9 +1,8 @@
 <template>
-<div class="from_footer"></div>
+    <div class="from_footer mb-3 p-3"></div>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style scoped>
 .from_footer {
