@@ -2,11 +2,11 @@
     <div class="from_body">
         <div class="card flex justify-content-center custom-input mx-6 my-6">
             <div class="flex gap-2 w-full">
-                <label for="item_name" class=""
+                <label for="item_name" class="w-4" style="word-break: break-all"
                     >Menu Item Name (e.g., Whopper)
                 </label>
                 <InputText
-                    class="p-inputtext-sm w-full"
+                    class="p-inputtext-sm w-8 h-2.5rem my-auto"
                     id="item_name"
                     name="item_name"
                     v-model="restaurant.manu_item_name"
@@ -18,11 +18,14 @@
 
         <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex gap-2 w-full">
-                <label for="item_number"
+                <label
+                    for="item_number"
+                    class="w-4"
+                    style="word-break: break-all"
                     >Restaurant's Menu Item Number</label
                 >
                 <InputText
-                    class="p-inputtext-sm w-full"
+                    class="p-inputtext-sm w-8 h-2.5rem my-auto"
                     id="item_number"
                     name="item_number"
                     v-model="restaurant.manu_item_number"
@@ -32,8 +35,10 @@
         </div>
 
         <div class="card flex custom-input justify-content-center mx-6 my-6">
-            <div class="flex flex-column gap-2 w-full">
-                <label for="item_category">Menu Item Category</label>
+            <div class="flex gap-2 w-full">
+                <label for="item_category" class="w-4"
+                    >Menu Item Category</label
+                >
                 <Dropdown
                     v-model="restaurant.item_category"
                     id="item_category"
@@ -41,7 +46,7 @@
                     :options="itemCatagories"
                     optionLabel="name"
                     placeholder="Please Select"
-                    class="w-6 custom_dropdown md:w-14rem h-5"
+                    class="p-inputtext-sm w-8 h-2.5rem my-auto"
                 />
             </div>
         </div>
