@@ -9,11 +9,9 @@
 </template>
 
 <script setup>
-import ChildFormHeader from "./ChildForm/ChildFormHeader.vue";
-import ChildFormBody from "./childForm/ChildFormBody.vue";
-import FormBody from "./FormBody.vue";
 import FormFooter from "./FormFooter.vue";
-import FormHeader from "./FormHeader.vue";
+import ChildFormBody from "./childForm/ChildFormBody.vue";
+import ChildFormHeader from "./childForm/ChildFormHeader.vue";
 </script>
 <style scoped>
 .container {
