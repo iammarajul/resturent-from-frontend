@@ -18,24 +18,26 @@
 
         <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex gap-2 w-full">
-                <label for="restaurent_address_1"
+                <label for="item_number"
                     >Restaurant's Menu Item Number</label
                 >
                 <InputText
                     class="p-inputtext-sm w-full"
-                    id="restaurent_address_1"
-                    name="restaurent_address_1"
-                    v-model="restaurant.address_1"
-                    aria-describedby="restaurent_address_1"
+                    id="item_number"
+                    name="item_number"
+                    v-model="restaurant.manu_item_number"
+                    aria-describedby="item_number"
                 />
             </div>
         </div>
 
         <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex flex-column gap-2 w-full">
-                <label for="restaurent_location_nb">Menu Item Category</label>
+                <label for="item_category">Menu Item Category</label>
                 <Dropdown
-                    v-model="selectedCity"
+                    v-model="restaurant.item_category"
+                    id="item_category"
+                    name="item_category"
                     :options="itemCatagories"
                     optionLabel="name"
                     placeholder="Please Select"
@@ -84,9 +86,11 @@
 
         <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex flex-column gap-2 w-full">
-                <label for="restaurent_location_nb">Notes:</label>
+                <label for="item_notes">Notes:</label>
                 <Textarea
-                    v-model="value"
+                    v-model="restaurant.item_notes"
+                    id="item_notes"
+                    name="item_notes"
                     rows="5"
                     cols="30"
                     class="custom_text_area"
