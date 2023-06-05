@@ -1,6 +1,6 @@
 <template>
     <div class="from_body">
-        <div class="card flex justify-content-center custom-input mx-6 my-3">
+        <div class="card flex justify-content-center custom-input mx-6 my-6">
             <div class="flex gap-2 w-full">
                 <label for="restaurent_name" class=""
                     >Menu Item Name (e.g., Whopper) </label
@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="card flex justify-content-center mx-6 my-3">
+        <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex gap-2 w-full">
                 <label for="restaurent_address_1"
                     >Restaurant's Menu Item Number</label
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="card flex justify-content-center mx-6 my-3">
+        <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex flex-column gap-2 w-full">
                 <label for="restaurent_location_nb">Menu Item Category</label>
                 <Dropdown 
@@ -43,13 +43,27 @@
             </div>
         </div>
         
-        <div class="card flex justify-content-center mx-6 my-3">
+        <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex flex-column gap-2 w-full">
                 <label for="restaurent_location_nb">Were any ingredients deep fried?</label>
                 <div v-for="category in categories" :key="category.key" class="flex align-items-center">
                     <RadioButton v-model="selectedCategory" :inputId="category.key" name="pizza" :value="category.name" />
                     <label :for="category.key" class="ml-2">{{ category.name }}</label>
                 </div>
+            </div>
+        </div>
+
+        <div class="card flex custom-input justify-content-center mx-6 my-6">
+            <div class="flex flex-column gap-2 w-full">
+                <label for="restaurent_location_nb">List any oils, seasonings, spices, and ingredients not listed above:</label>
+                <Textarea v-model="value" rows="5" cols="30" class="custom_text_area" />
+            </div>
+        </div>
+
+        <div class="card flex custom-input justify-content-center mx-6 my-6">
+            <div class="flex flex-column gap-2 w-full">
+                <label for="restaurent_location_nb">Notes:</label>
+                <Textarea v-model="value" rows="5" cols="30" class="custom_text_area" />
             </div>
         </div>
 
@@ -64,6 +78,7 @@ import InputText from "primevue/inputtext";
 import ProgressBar from "primevue/progressbar";
 import Dropdown from 'primevue/dropdown';
 import RadioButton from 'primevue/radiobutton';
+import Textarea from 'primevue/textarea';
 import { ref } from "vue";
 
 const restaurant = ref({});
@@ -104,5 +119,11 @@ const categories = ref([
 .custom_dropdown{
     height: 2.5em !important;
     width: 50% !important;
+}
+.custom-input{
+    margin-bottom: 10px;
+}
+.custom_text_area{
+    height: 5rem;
 }
 </style>
