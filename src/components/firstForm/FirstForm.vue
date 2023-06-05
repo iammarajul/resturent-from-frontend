@@ -1,17 +1,16 @@
 <template>
     <form class="container">
-        <!-- <FormHeader /> -->
-        <ChildFormHeader />
-        <!-- <FormBody /> -->
-        <ChildFormBody />
+        <FormHeader />
+        <FormBody />
+
         <FormFooter />
     </form>
 </template>
 
 <script setup>
+import FormBody from "./FormBody.vue";
 import FormFooter from "./FormFooter.vue";
-import ChildFormBody from "./childForm/ChildFormBody.vue";
-import ChildFormHeader from "./childForm/ChildFormHeader.vue";
+import FormHeader from "./FormHeader.vue";
 </script>
 <style scoped>
 .container {

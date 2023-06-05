@@ -1,9 +1,11 @@
 <template>
     <div>
-        <MainForm />
+        <!-- <FirstForm /> -->
+        <ChildForm />
     </div>
 </template>
 
 <script setup>
-import MainForm from "../components/MainForm.vue";
+import ChildForm from "../components/childForm/childForm.vue";
+// import FirstForm from "../components/firstForm/FirstForm.vue";
 </script>
