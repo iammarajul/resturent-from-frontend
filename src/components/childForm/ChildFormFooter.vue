@@ -1,7 +1,9 @@
 <template>
     <div class="from_footer">
         <div class="p-5 flex mx-5">
-            <div class="dump-space"></div>
+            <div class="dump-space">
+                <Button label="Back" severity="secondary" class="w-5" />
+            </div>
             <div class="footer-buttons flex">
                 <Button
                     label="Save"
@@ -9,7 +11,8 @@
                     class="mr-2 w-4"
                     outlined
                 />
-                <Button label="Next" severity="info" class="w-5" />
+                <!-- <Button label="Next" severity="info" class="w-6" /> -->
+                <Button label="Submit" severity="success" class="w-6" />
             </div>
         </div>
     </div>

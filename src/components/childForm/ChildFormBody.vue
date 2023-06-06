@@ -74,6 +74,53 @@
             </div>
         </div>
 
+        <div>
+            <div class="card flex custom-input justify-content-center mx-6 my-6">
+                <div class="flex flex-column gap-2 w-full">
+                    <label for="item_number"
+                        >Which ingredients were deep fried?</label
+                    >
+                    <InputText
+                        class="p-inputtext-sm w-6"
+                        id="item_number"
+                        name="item_number"
+                        v-model="restaurant.manu_item_number"
+                        aria-describedby="item_number"
+                    />
+                </div>
+            </div>
+
+            <div class="card flex custom-input justify-content-center mx-6 my-6">
+                <div class="flex flex-column gap-2 w-full">
+                    <label for="item_oil_type">What type of oil was used?</label>
+                    <Dropdown
+                        v-model="restaurant.item_oil_type"
+                        id="item_oil_type"
+                        name="item_oil_type"
+                        :options="itemOilTypes"
+                        optionLabel="name"
+                        placeholder="Please Select"
+                        class="w-6 custom_dropdown h-5"
+                    />
+                </div>
+            </div>
+
+            <div class="card flex custom-input justify-content-center mx-6 my-6">
+                <div class="flex flex-column gap-2 w-full">
+                    <label for="item_breaded">Were fried ingredients breaded or battered?</label>
+                    <Dropdown
+                        v-model="restaurant.item_breaded"
+                        id="item_breaded"
+                        name="item_breaded"
+                        :options="itemBreadeds"
+                        optionLabel="name"
+                        placeholder="Please Select"
+                        class="w-6 custom_dropdown h-5"
+                    />
+                </div>
+            </div>
+        </div>
+
         <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex flex-column gap-2 w-full">
                 <label for="restaurent_location_nb"
@@ -133,6 +180,21 @@ const itemCatagories = [
     { name: "Kids Menu", code: "11" },
     { name: "Condiments", code: "12" },
     { name: "Extras", code: "13" },
+];
+
+const itemOilTypes = [
+    { name: "Vegetable oil", code: "1" },
+    { name: "Canola oil", code: "2" },
+    { name: "Peanut oil", code: "3" },
+    { name: "Corn oil", code: "4" },
+    { name: "Olive oil", code: "5" },
+    { name: "Other (see notes)", code: "6" },
+];
+
+const itemBreadeds = [
+    { name: "Breaded", code: "1" },
+    { name: "Battered", code: "2" },
+    { name: "Other (see notes)", code: "3" }
 ];
 
 const selectedCategory = ref("Production");
