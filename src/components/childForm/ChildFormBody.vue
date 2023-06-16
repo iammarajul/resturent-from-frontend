@@ -51,31 +51,42 @@
             </div>
         </div>
 
+        <div class="card flex mx-6 my-6">
+            <IngredienceTable />
+        </div>
+
         <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex flex-column gap-2 w-full">
                 <label for="restaurent_location_nb"
                     >Were any ingredients deep fried?</label
                 >
-                <div
-                    v-for="category in categories"
-                    :key="category.key"
-                    class="flex align-items-center"
-                >
+                <div class="flex align-items-center">
                     <RadioButton
-                        v-model="selectedCategory"
-                        :inputId="category.key"
-                        name="pizza"
-                        :value="category.name"
+                        v-model="ingredient"
+                        inputId="ingredient1"
+                        name="yes"
+                        value="yes"
+                        @click="hasFriedIngredients = true"
                     />
-                    <label :for="category.key" class="ml-2">{{
-                        category.name
-                    }}</label>
+                    <label for="ingredient1" class="ml-2">Yes</label>
+                </div>
+                <div class="flex align-items-center">
+                    <RadioButton
+                        v-model="ingredient"
+                        inputId="ingredient2"
+                        name="no"
+                        value="no"
+                        @click="hasFriedIngredients = false"
+                    />
+                    <label for="ingredient2" class="ml-2">No</label>
                 </div>
             </div>
         </div>
 
-        <div>
-            <div class="card flex custom-input justify-content-center mx-6 my-6">
+        <div v-if="hasFriedIngredients">
+            <div
+                class="card flex custom-input justify-content-center mx-6 my-6"
+            >
                 <div class="flex flex-column gap-2 w-full">
                     <label for="item_number"
                         >Which ingredients were deep fried?</label
@@ -90,9 +101,13 @@
                 </div>
             </div>
 
-            <div class="card flex custom-input justify-content-center mx-6 my-6">
+            <div
+                class="card flex custom-input justify-content-center mx-6 my-6"
+            >
                 <div class="flex flex-column gap-2 w-full">
-                    <label for="item_oil_type">What type of oil was used?</label>
+                    <label for="item_oil_type"
+                        >What type of oil was used?</label
+                    >
                     <Dropdown
                         v-model="restaurant.item_oil_type"
                         id="item_oil_type"
@@ -105,9 +120,13 @@
                 </div>
             </div>
 
-            <div class="card flex custom-input justify-content-center mx-6 my-6">
+            <div
+                class="card flex custom-input justify-content-center mx-6 my-6"
+            >
                 <div class="flex flex-column gap-2 w-full">
-                    <label for="item_breaded">Were fried ingredients breaded or battered?</label>
+                    <label for="item_breaded"
+                        >Were fried ingredients breaded or battered?</label
+                    >
                     <Dropdown
                         v-model="restaurant.item_breaded"
                         id="item_breaded"
@@ -163,6 +182,7 @@ import ProgressBar from "primevue/progressbar";
 import RadioButton from "primevue/radiobutton";
 import Textarea from "primevue/textarea";
 import { ref } from "vue";
+import IngredienceTable from "./ingredienceTable.vue";
 
 const restaurant = ref({});
 const selectedCity = ref();
@@ -194,14 +214,13 @@ const itemOilTypes = [
 const itemBreadeds = [
     { name: "Breaded", code: "1" },
     { name: "Battered", code: "2" },
-    { name: "Other (see notes)", code: "3" }
+    { name: "Other (see notes)", code: "3" },
 ];
 
 const selectedCategory = ref("Production");
-const categories = ref([
-    { name: "Yes", key: "1" },
-    { name: "No", key: "0" },
-]);
+
+const hasFriedIngredients = ref(false);
+const ingredient = ref("no");
 </script>
 
 <style scoped>

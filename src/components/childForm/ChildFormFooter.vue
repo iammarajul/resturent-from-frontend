@@ -12,7 +12,12 @@
                     outlined
                 />
                 <!-- <Button label="Next" severity="info" class="w-6" /> -->
-                <Button label="Submit" severity="success" class="w-6" />
+                <Button
+                    label="Submit"
+                    severity="success"
+                    class="w-6"
+                    type="submit"
+                />
             </div>
         </div>
     </div>
