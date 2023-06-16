@@ -8,8 +8,8 @@
 <script setup>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import ChildForm from "./childForm/childForm.vue";
-import FirstForm from "./firstForm/FirstForm.vue";
+import ChildForm from "../components/childForm/childForm.vue";
+import FirstForm from "../components/firstForm/FirstForm.vue";
 const store = useStore();
 
 const Page = computed(() => store.state.page);
