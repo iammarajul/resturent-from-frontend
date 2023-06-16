@@ -4,7 +4,7 @@ import { createStore } from 'vuex';
 const store = createStore({
   state () {
     return {
-      page: 2,
+      page: 1,
       first_page:{},
       items: [],
     }
