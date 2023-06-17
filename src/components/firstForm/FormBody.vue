@@ -77,8 +77,8 @@
                 </div>
             </div>
 
-            <div class="flex mx-6 my-3">
-                <div class="justify-content-center mr-2 w-full">
+            <div class="flex mx-6 my-3 ">
+                <div class="justify-content-center mr-2 w-6">
                     <div class="flex flex-column gap-2">
                         <InputText
                             class="p-inputtext-sm"
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class="justify-content-center ml-2 w-full">
+                <div class="justify-content-center ml-2 w-6">
                     <div class="flex flex-column gap-2">
                         <InputText
                             class="p-inputtext-sm"
@@ -167,7 +167,7 @@
             </div>
 
             <div class="flex mx-6 my-3">
-                <div class="justify-content-center mr-2 w-full">
+                <div class="justify-content-center mr-2 w-6">
                     <div class="flex flex-column gap-2">
                         <InputText
                             class="p-inputtext-sm"
@@ -186,7 +186,7 @@
                     </div>
                 </div>
 
-                <div class="justify-content-center ml-2 w-full">
+                <div class="justify-content-center ml-2 w-6">
                     <div class="flex flex-column gap-2">
                         <InputText
                             class="p-inputtext-sm"
@@ -207,7 +207,7 @@
             </div>
 
             <div class="flex mx-6 my-3">
-                <div class="justify-content-center mr-2 w-full">
+                <div class="justify-content-center mr-2 w-6">
                     <div class="flex flex-column gap-2">
                         <label for="restaurent_email"
                             >Contact Phone<span class="text-red-600"
@@ -232,7 +232,7 @@
                     </div>
                 </div>
 
-                <div class="justify-content-center ml-2 w-full">
+                <div class="justify-content-center ml-2 w-6">
                     <div class="flex flex-column gap-2">
                         <label for="contact_email"
                             >Contact Email<span class="text-red-600"
@@ -293,7 +293,7 @@ import ProgressBar from "primevue/progressbar";
 import { useForm } from "vee-validate";
 import { ref } from "vue";
 import { useStore } from "vuex";
-import validationSchema from "../../assets/list";
+import {schema} from "../../assets/list";
 import SaveModal from "../common/SaveModal.vue";
 
 const props = defineProps({
@@ -304,7 +304,7 @@ const props = defineProps({
 });
 
 const { useFieldModel, errors, handleSubmit } = useForm({
-    validationSchema: validationSchema,
+    validationSchema: schema,
 });
 
 const [

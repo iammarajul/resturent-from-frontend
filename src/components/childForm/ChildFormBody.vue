@@ -2,7 +2,7 @@
     <div class="from_body">
         <div class="card flex justify-content-center custom-input mx-6 my-6">
             <div class="flex gap-2 w-full">
-                <label for="item_name" class="w-4" style="word-break: break-all"
+                <label for="item_name" class="w-6" style="word-break: break-all"
                     >Menu Item Name (e.g., Whopper)
                 </label>
                 <InputText
@@ -20,7 +20,7 @@
             <div class="flex gap-2 w-full">
                 <label
                     for="item_number"
-                    class="w-4"
+                    class="w-6"
                     style="word-break: break-all"
                     >Restaurant's Menu Item Number</label
                 >
@@ -36,7 +36,7 @@
 
         <div class="card flex custom-input justify-content-center mx-6 my-6">
             <div class="flex gap-2 w-full">
-                <label for="item_category" class="w-4"
+                <label for="item_category" class="w-6"
                     >Menu Item Category</label
                 >
                 <Dropdown
@@ -51,8 +51,16 @@
             </div>
         </div>
 
-        <div class="card flex mx-6 my-6">
-            <IngredienceTable />
+        <div class="card flex mx-6 my-6 flex-column">
+          <label for="item_name" class="mb-2" style="word-break: break-all"
+          >Ingredience
+          </label>
+          <label class="mb-3" style="font-size: small"
+          >          Ingredient names should be as descriptive as possible (e.g., grilled white onions, Colby cheese, 80/20 ground beef, etc.)
+          </label>
+
+            <IngredienceTable  :data="restaurant.ingredientTable" @update:data="updateIngredientTable"/>
+            <pre>{{restaurant.ingredientTable}}</pre>
         </div>
 
         <div class="card flex custom-input justify-content-center mx-6 my-6">
@@ -147,7 +155,7 @@
                     listed above:</label
                 >
                 <Textarea
-                    v-model="value"
+                    v-model="restaurant.ingredients_not_listed"
                     rows="5"
                     cols="30"
                     class="custom_text_area"
@@ -169,6 +177,8 @@
             </div>
         </div>
 
+        <pre>{{restaurant}}</pre>
+
         <div class="card mx-6 my-6">
             <ProgressBar style="height: 16px" :value="10"></ProgressBar>
         </div>
@@ -182,64 +192,25 @@ import ProgressBar from "primevue/progressbar";
 import RadioButton from "primevue/radiobutton";
 import Textarea from "primevue/textarea";
 import { ref } from "vue";
+import {itemCatagories,itemOilTypes,itemBreadeds} from "@/assets/list"
 import IngredienceTable from "./ingredienceTable.vue";
 
-const restaurant = ref({});
+const restaurant = ref({
+  ingredientTable:[],
+});
 const selectedCity = ref();
-const itemCatagories = [
-    { name: "Breakfast", code: "1" },
-    { name: "Lunch", code: "2" },
-    { name: "Dinner", code: "3" },
-    { name: "Appetizer", code: "4" },
-    { name: "Entree", code: "5" },
-    { name: "Dessert", code: "6" },
-    { name: "Beverages", code: "7" },
-    { name: "Sides", code: "8" },
-    { name: "Add Ons", code: "9" },
-    { name: "Brunch", code: "10" },
-    { name: "Kids Menu", code: "11" },
-    { name: "Condiments", code: "12" },
-    { name: "Extras", code: "13" },
-];
-
-const itemOilTypes = [
-    { name: "Vegetable oil", code: "1" },
-    { name: "Canola oil", code: "2" },
-    { name: "Peanut oil", code: "3" },
-    { name: "Corn oil", code: "4" },
-    { name: "Olive oil", code: "5" },
-    { name: "Other (see notes)", code: "6" },
-];
-
-const itemBreadeds = [
-    { name: "Breaded", code: "1" },
-    { name: "Battered", code: "2" },
-    { name: "Other (see notes)", code: "3" },
-];
 
 const selectedCategory = ref("Production");
 
 const hasFriedIngredients = ref(false);
 const ingredient = ref("no");
+
+const ingredientTable = ref([])
+const updateIngredientTable = (data) => {
+  restaurant.value.ingredientTable = data
+}
 </script>
 
 <style scoped>
-.from_body {
-    width: 100%;
-    height: 80%;
-    border-bottom: solid 1px #d7d8e1;
-}
-.custom_label {
-    width: 50px;
-}
-t .custom_dropdown {
-    height: 2.5em !important;
-    width: 50% !important;
-}
-.custom-input {
-    margin-bottom: 10px;
-}
-.custom_text_area {
-    height: 5rem;
-}
+
 </style>
