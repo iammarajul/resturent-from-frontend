@@ -1,4 +1,5 @@
 <template>
+
     <FormBody :formData="restaurant" @update:formData="updateFormData" />
 </template>
 
@@ -17,5 +18,5 @@ const onSubmit = (values) => {
 };
 </script>
 <style scoped>
-@import url("../../assets/firstForm.css");
+
 </style>

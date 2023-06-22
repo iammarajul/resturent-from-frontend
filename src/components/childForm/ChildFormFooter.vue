@@ -2,29 +2,59 @@
     <div class="from_footer">
         <div class="p-5 flex mx-5">
             <div class="dump-space">
-                <Button label="Back" severity="secondary" class="w-5" />
+                <Button @click="onClickBack" label="Back" severity="secondary" class="w-5" />
             </div>
             <div class="footer-buttons flex">
                 <Button
-                    label="Save"
+                    label="Save and continue later"
                     severity="secondary"
-                    class="mr-2 w-4"
+                    @click="saveAndContinueLater"
+                    class="mr-2"
+                    size="small"
+                    style="font-size: 10px"
                     outlined
                 />
                 <!-- <Button label="Next" severity="info" class="w-6" /> -->
                 <Button
-                    label="Submit"
+                    label="save and add another item"
                     severity="success"
-                    class="w-6"
+                    @click="saveAndAddAnotherItem"
+                    size="small"
+                    style="font-size: 10px"
                     type="submit"
                 />
             </div>
         </div>
+      <div class="flex justify-content-center mb-2">
+        <Button
+            label="Submit"
+            severity="warning"
+            @click=""
+            size="small"
+            style="width: 200px"
+            type="submit"
+        />
+      </div>
+
     </div>
 </template>
 
 <script setup>
 import Button from "primevue/button";
+const props = defineProps({
+  onClickBack:{
+    type: Function,
+    default: () => {},
+  },
+  saveAndAddAnotherItem:{
+    type: Function,
+    default: () => {},
+  },
+  saveAndContinueLater:{
+    type: Function,
+    default: () => {},
+  },
+})
 </script>
 
 <style scoped>

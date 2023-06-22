@@ -66,21 +66,26 @@
 <script setup>
 import Button from "primevue/button";
 import {computed, ref} from "vue";
-
-const emit = defineEmits(["update:data"]);
+import {useStore} from "vuex";
+const store = useStore();
 const props = defineProps({
-  data:{
+  ingredients_data:{
     type: Array,
+    default: [],
+  },
+  itemNumber:{
+    type: Number,
     required: true
   }
 });
 
+const emit = defineEmits(["update:ingredients_table"])
+
 const ingredients = computed({
   get() {
-    console.log("Props",props.data)
-    return props.data
+    return props.ingredients_data;
   },set(value) {
-    emit('update:data', value)
+    emit("update:ingredients_table", value)
   }
 });
 const newIngredient = ref({
@@ -95,6 +100,7 @@ function addIngredient() {
   if (newIngredient.value.weight && newIngredient.value.name) {
     const copyIngredient = [...ingredients.value];
     copyIngredient.push({...newIngredient.value});
+    console.log("copy",copyIngredient)
     ingredients.value = copyIngredient;
     newIngredient.value.weight = "";
     newIngredient.value.name = "";
@@ -114,12 +120,10 @@ function edit(index) {
 
 function updateIngredient(index) {
   // Implement your logic for updating the ingredient here
-  console.log("updateIngredient", ingredients[0]);
   const ingredient = ingredients.value[index];
   ingredient.weight = editWeight.value;
   ingredient.name = editName.value;
   editRow.value = -1;
-
 }
 </script>
 
