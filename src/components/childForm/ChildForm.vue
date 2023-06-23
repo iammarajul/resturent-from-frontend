@@ -2,19 +2,21 @@
   <form class="container" @submit.prevent="submitForm">
     <SingleItem v-for="index in range" :itemNumber="index"/>
 
-    <ChildFormFooter :saveAndContinueLater="saveAndContinueLater" :onClickBack="onClickBack" :saveAndAddAnotherItem="saveAndAddAnotherItem"/>
-  </form>
+    <ChildFormFooter :pageNb="currentPage" :saveAndContinueLater="saveAndContinueLater" :onClickBack="onClickBack" :saveAndAddAnotherItem="saveAndAddAnotherItem"/>
+    </form>
+
   <SaveModal :showModal="showModal" @update:showModal="updateShowModal"/>
 </template>
 
 <script setup>
-// import ProgressBar from "primevue/progressbar";
+
 import SaveModal from "@/components/common/SaveModal.vue";
-import SingleItem from "@/components/childform/SingleItem.vue";
+import SingleItem from "@/components/childForm/SingleItem.vue";
 import ChildFormFooter from "./ChildFormFooter.vue";
 import {computed, ref} from "vue";
 import _ from "lodash";
 import {useStore} from "vuex";
+import ProgressBar from "primevue/progressbar";
 
 const store = useStore();
 
