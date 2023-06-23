@@ -11,7 +11,7 @@
 <script setup>
 
 import SaveModal from "@/components/common/SaveModal.vue";
-import SingleItem from "@/components/childform/SingleItem.vue";
+import SingleItem from "@/components/childForm/SingleItem.vue";
 import ChildFormFooter from "./ChildFormFooter.vue";
 import {computed, ref} from "vue";
 import _ from "lodash";
