@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <div class="flex mx-6 my-3 ">
+            <div class="flex mx-6 my-3">
                 <div class="justify-content-center mr-2 w-6">
                     <div class="flex flex-column gap-2">
                         <InputText
@@ -201,7 +201,7 @@
                             id="last_name"
                             >{{ errors.last_name }}</small
                         >
-                        <small id="last_name">First Name</small>
+                        <small id="last_name">Last Name</small>
                     </div>
                 </div>
             </div>
@@ -258,7 +258,7 @@
             </div>
 
             <div class="card mx-6 my-6">
-                <ProgressBar  style="height: 12px" :value="0"></ProgressBar>
+                <ProgressBar style="height: 12px" :value="0"></ProgressBar>
             </div>
         </div>
 
@@ -293,7 +293,7 @@ import ProgressBar from "primevue/progressbar";
 import { useForm } from "vee-validate";
 import { ref } from "vue";
 import { useStore } from "vuex";
-import {schema} from "../../assets/list";
+import { schema } from "../../assets/list";
 import SaveModal from "../common/SaveModal.vue";
 
 const props = defineProps({
@@ -337,7 +337,6 @@ const store = useStore();
 const formData = store.state.first_page;
 restoreData();
 
-
 function restoreData() {
     restaurant_name.value = formData.restaurant_name;
     restaurent_address_1.value = formData.restaurent_address_1;
@@ -351,7 +350,6 @@ function restoreData() {
     restaurent_phone_nb.value = formData.restaurent_phone_nb;
     contact_email.value = formData.contact_email;
 }
-
 
 const onSubmit = handleSubmit((values) => {
     store.commit("setFormData", values);
@@ -369,75 +367,72 @@ const onSave = () => {
 </script>
 
 <style scoped>
-
-
 /* form Header start */
 
 .from_header {
-  width: 100%;
-  height: 100%;
-  border-bottom: solid 1px #d7d8e1;
+    width: 100%;
+    height: 100%;
+    border-bottom: solid 1px #d7d8e1;
 }
 .header_title {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 5%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 5%;
 }
 .title {
-  font-size: 2em;
-  font-weight: bold;
-  color: #2c3345;
-  margin-bottom: 3px;
+    font-size: 2em;
+    font-weight: bold;
+    color: #2c3345;
+    margin-bottom: 3px;
 }
 .sub_title {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2c3345;
+    font-size: 1em;
+    font-weight: bold;
+    color: #2c3345;
 }
 
 /* form Header end */
 
 /* form  Footer start*/
 .from_footer {
-  width: 100%;
-  height: 50%;
-  border-bottom: solid 1px #d7d8e1;
+    width: 100%;
+    height: 50%;
+    border-bottom: solid 1px #d7d8e1;
 }
 .dump-space {
-  width: 50%;
+    width: 50%;
 }
 .footer-buttons {
-  width: 50%;
-  justify-content: end;
+    width: 50%;
+    justify-content: end;
 }
 /* form  Footer end*/
 
 /* form  Body start*/
 
 .from_body {
-  width: 100%;
-  height: 80%;
-  border-bottom: solid 1px #d7d8e1;
+    width: 100%;
+    height: 80%;
+    border-bottom: solid 1px #d7d8e1;
 }
 /* form  Body end*/
 
 .container {
-  max-width: 775px;
+    max-width: 775px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  background: transparent;
-  border: solid 1px #d7d8e1;
-  border-top: none;
-  border-bottom: none;
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background: transparent;
+    border: solid 1px #d7d8e1;
+    border-top: none;
+    border-bottom: none;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 }
-
 </style>
