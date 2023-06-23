@@ -258,7 +258,7 @@
             </div>
 
             <div class="card mx-6 my-6">
-                <ProgressBar style="height: 12px" :value="0"></ProgressBar>
+                <ProgressBar  style="height: 12px" :value="0"></ProgressBar>
             </div>
         </div>
 
@@ -369,6 +369,8 @@ const onSave = () => {
 </script>
 
 <style scoped>
+
+
 /* form Header start */
 
 .from_header {

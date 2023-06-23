@@ -192,7 +192,9 @@
         />
       </div>
     </div>
-
+    <div class="card mx-6 my-6">
+      <ProgressBar  style="height: 15px" :value="progress"></ProgressBar>
+    </div>
 
   </div>
 </template>
@@ -207,6 +209,7 @@ import {computed, ref, watch} from "vue";
 import {itemCatagories, itemOilTypes, itemBreadeds} from "@/assets/list"
 import IngredienceTable from "./ingredienceTable.vue";
 import {useStore} from "vuex";
+import ProgressBar from "primevue/progressbar";
 
 const store = useStore();
 
@@ -223,6 +226,9 @@ const props = defineProps({
   }
 })
 
+const progress = computed(() => {
+  return store.getters.getProgress
+})
 
 const restaurant = ref(store.getters.getItem(props.itemNumber));
 watch(props,(newVal) => {

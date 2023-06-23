@@ -5,13 +5,14 @@ import _ from 'lodash';
 const store = createStore({
     state() {
         return {
-            page: 2,
+            page: 1,
             first_page: {},
             items: [],
             complated_pages: 0,
         }
     },
     getters: {
+        getProgress: state => (state.page-1)*10,
         getPageNumber: state => (state.page),
         getItemById: state => (id) => state.items.find((item) => item.id === id),
         getItem: (state, getters) => (index) => {
