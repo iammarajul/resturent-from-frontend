@@ -2,11 +2,16 @@
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
+import { useStore } from "vuex";
 import saveIcon from "./saveIcon.vue";
 const props = defineProps({
     showModal: Boolean,
 });
+
+// get first_page.contact_email from store
+
+const store = useStore();
 
 const emits = defineEmits(["update:showModal"]);
 
@@ -17,7 +22,18 @@ const modalValue = computed({
     },
 });
 
-const SendEmail = ref("");
+const SendEmail = ref();
+
+watch(
+    () => store.state.first_page.contact_email,
+    (newValue, oldValue) => {
+        SendEmail.value = newValue;
+    }
+);
+
+const sendData = () => {
+    store.dispatch("setFormByEmail");
+};
 </script>
 
 <template>
@@ -62,6 +78,7 @@ const SendEmail = ref("");
                             outlined
                             color="black"
                             style="border: 1px solid #c3cad8"
+                            @click="sendData"
                         />
                     </div>
                 </div>

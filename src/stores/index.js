@@ -1,5 +1,6 @@
-import {createStore} from 'vuex';
 import _ from 'lodash';
+import { createStore } from 'vuex';
+import { setForm } from "../services/formService";
 
 // Create a new store instance.
 const store = createStore({
@@ -9,9 +10,17 @@ const store = createStore({
             first_page: {},
             items: [],
             complated_pages: 0,
+            shareLink: ''
         }
     },
     getters: {
+        getRequestData: state => {
+            return {
+                first_page: state.first_page,
+                items: state.items,
+                page: state.page
+            }
+        },
         getProgress: state => (state.page-1)*10,
         getPageNumber: state => (state.page),
         getItemById: state => (id) => state.items.find((item) => item.id === id),
@@ -44,6 +53,9 @@ const store = createStore({
         setFormData(state, items) {
             state.first_page = {...items};
             state.page = state.page + 1;
+        },
+        setFromDataWithOutIncrementPage(state, items) {
+            state.first_page = {...items};
         },
         decrementPageNumber(state) {
             if (state.page > 1) {
@@ -81,8 +93,18 @@ const store = createStore({
                 };
             }
 
+        },
+        setShareLink(state, link) {
+            state.shareLink = link;
         }
     },
+    actions: {
+        async setFormByEmail({commit, getters}) {
+            const data =getters.getRequestData;
+            const responseData = await setForm(data);
+            commit('setShareLink', responseData);
+        }
+    }
 })
 
 
