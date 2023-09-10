@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createStore } from 'vuex';
-import { setForm } from "../services/formService";
+import { getFormById, setForm } from "../services/formService";
 
 // Create a new store instance.
 const store = createStore({
@@ -47,6 +47,11 @@ const store = createStore({
 
     },
     mutations: {
+        updateState(state, data) {
+            state.first_page = data.first_page;
+            state.items = data.items;
+            state.page = data.page;
+        },
         setItems(state, index, items) {
             state.items[index] = items;
         },
@@ -103,8 +108,12 @@ const store = createStore({
             const data =getters.getRequestData;
             const responseData = await setForm(data);
             commit('setShareLink', responseData);
+        },
+        async getFormWithId({commit}, id) {
+            const data = await getFormById(id);
+            data!=null?commit('updateState', data):null;
         }
-    }
+    },
 })
 
 

@@ -12,8 +12,17 @@ async function setForm(form) {
     }
 }
 
+async function getFormById(id) {
+    try{
+        const { data } = await axios.get(apiEndpoint + id);
+        return data;
+    }
+    catch(ex){
+        console.log(ex);
+    }
+}
 
 export {
-    setForm
+    getFormById, setForm
 };
 

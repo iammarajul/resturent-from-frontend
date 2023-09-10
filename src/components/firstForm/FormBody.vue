@@ -291,7 +291,7 @@ import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import ProgressBar from "primevue/progressbar";
 import { useForm } from "vee-validate";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { schema } from "../../assets/list";
 import SaveModal from "../common/SaveModal.vue";
@@ -334,9 +334,15 @@ const [
 ]);
 
 const store = useStore();
-const formData = store.state.first_page;
+let formData = store.state.first_page;
+watch(
+    () => store.state.first_page,
+    (value) => {
+        formData = value;
+        restoreData();
+    }
+);
 restoreData();
-
 function restoreData() {
     restaurant_name.value = formData.restaurant_name;
     restaurent_address_1.value = formData.restaurent_address_1;

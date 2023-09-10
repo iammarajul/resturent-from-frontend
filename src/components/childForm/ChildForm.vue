@@ -47,6 +47,7 @@ const saveAndAddAnotherItem = () => {
 };
 
 const updateShowModal = (value) => {
+  
   showModal.value = value;
 };
 
