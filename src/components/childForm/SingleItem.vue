@@ -207,7 +207,7 @@ import RadioButton from "primevue/radiobutton";
 import Textarea from "primevue/textarea";
 import {computed, ref, watch} from "vue";
 import {itemCatagories, itemOilTypes, itemBreadeds} from "@/assets/list"
-import IngredienceTable from "./ingredienceTable.vue";
+import IngredienceTable from "./IngredienceTable.vue";
 import {useStore} from "vuex";
 import ProgressBar from "primevue/progressbar";
 

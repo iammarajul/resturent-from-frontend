@@ -12,5 +12,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: '/resturent-from-frontend',
+  server:{
+    port:8080,
+    host:true,
+  },
 })

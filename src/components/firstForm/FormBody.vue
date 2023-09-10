@@ -201,7 +201,7 @@
                             id="last_name"
                             >{{ errors.last_name }}</small
                         >
-                        <small id="last_name">First Name</small>
+                        <small id="last_name">Last Name</small>
                     </div>
                 </div>
             </div>
@@ -343,6 +343,7 @@ watch(
     }
 );
 restoreData();
+
 function restoreData() {
     restaurant_name.value = formData.restaurant_name;
     restaurent_address_1.value = formData.restaurent_address_1;
