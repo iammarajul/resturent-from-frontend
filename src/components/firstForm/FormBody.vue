@@ -358,7 +358,9 @@ function restoreData() {
     contact_email.value = formData.contact_email;
 }
 
-const onSubmit = handleSubmit((values) => {
+const onSubmit = handleSubmit(async (values) => {
+    // const data = await isEmailExist(values.contact_email);
+    // console.log(data);
     store.commit("setFormData", values);
 });
 

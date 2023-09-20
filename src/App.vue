@@ -16,6 +16,7 @@ function getQueryParameters(url) {
 const queryParams = getQueryParameters(window.location.href);
 const store = useStore();
 if (queryParams.id) {
+    store.commit("setShareLink", queryParams.id);
     store.dispatch("getFormWithId", queryParams.id);
 }
 </script>

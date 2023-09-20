@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiEndpoint = "http://localhost:5000/api/";
+const apiEndpoint = "http://13.229.111.146:5000/api/";
 
 async function setForm(form) {
     try{
@@ -8,7 +8,37 @@ async function setForm(form) {
         return data;
     }
     catch(ex){
-        console.log(ex);
+        return ex.response.data;
+    }
+}
+
+async function setFormById(id, form) {
+    try{
+        const { data } = await axios.post(apiEndpoint + id, form);
+        return data;
+    }
+    catch(ex){
+        return ex.response.data;
+    }
+}
+
+async function submitFormService(form) {
+    try{
+        const { data } = await axios.post(apiEndpoint+"submit/form", form);
+        return data;
+    }
+    catch(ex){
+        return ex.response.data;
+    }
+}
+
+async function submitFormByIdService(id,form) {
+    try{
+        const { data } = await axios.post(apiEndpoint+"submit/form/" + id, form);
+        return data;
+    }
+    catch(ex){
+        return ex.response.data;
     }
 }
 
@@ -22,7 +52,29 @@ async function getFormById(id) {
     }
 }
 
+async function resendEmail(email) {
+    try{
+        const { data } = await axios.post(apiEndpoint + "resend/email", {email});
+        return data;
+    }
+    catch(ex){
+       return ex.response.data;
+    }
+}
+
+async function isEmailExist(email) {
+    try{
+        const { data } = await axios.post(apiEndpoint + "email/exists", {email});
+        return data;
+    }
+    catch(ex){
+       return ex.response.data;
+    }
+
+}
+
+
 export {
-    getFormById, setForm
+    getFormById, isEmailExist, resendEmail, setForm, setFormById, submitFormByIdService, submitFormService
 };
 
