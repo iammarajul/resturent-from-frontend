@@ -263,21 +263,14 @@
         </div>
 
         <div class="from_footer">
-            <div class="p-5 flex mx-5">
-                <div class="dump-space"></div>
+            <div class="py-5 flex mx-5">
                 <div class="footer-buttons flex">
                     <Button
-                        label="Save"
-                        severity="secondary"
-                        class="mr-2 w-4"
-                        outlined
-                        @click="onSave"
-                    />
-                    <Button
                         label="Next"
-                        severity="info"
-                        class="w-5"
+                        severity="warning"
+                        class="w-3"
                         type="submit"
+                        rounded
                     />
                 </div>
             </div>
@@ -345,17 +338,37 @@ watch(
 restoreData();
 
 function restoreData() {
-    restaurant_name.value = formData.restaurant_name;
-    restaurent_address_1.value = formData.restaurent_address_1;
-    restaurent_address_2.value = formData.restaurent_address_2;
-    restaurent_city.value = formData.restaurent_city;
-    restaurent_state.value = formData.restaurent_state;
-    resturent_zip_code.value = formData.resturent_zip_code;
-    restaurent_location_nb.value = formData.restaurent_location_nb;
-    first_name.value = formData.first_name;
-    last_name.value = formData.last_name;
-    restaurent_phone_nb.value = formData.restaurent_phone_nb;
-    contact_email.value = formData.contact_email;
+    if (formData.restaurant_name !== "")
+        restaurant_name.value = formData.restaurant_name;
+
+    if (formData.restaurent_address_1 !== undefined) {
+        restaurent_address_1.value = formData.restaurent_address_1;
+    }
+
+    if (formData.restaurent_address_2 !== undefined)
+        restaurent_address_2.value = formData.restaurent_address_2;
+    if (formData.restaurent_city !== undefined)
+        restaurent_city.value = formData.restaurent_city;
+
+    if (formData.restaurent_state !== undefined)
+        restaurent_state.value = formData.restaurent_state;
+
+    if (formData.resturent_zip_code !== undefined)
+        resturent_zip_code.value = formData.resturent_zip_code;
+
+    if (formData.restaurent_location_nb !== undefined)
+        restaurent_location_nb.value = formData.restaurent_location_nb;
+
+    if (formData.first_name !== undefined)
+        first_name.value = formData.first_name;
+
+    if (formData.last_name !== undefined) last_name.value = formData.last_name;
+
+    if (formData.restaurent_phone_nb !== undefined)
+        restaurent_phone_nb.value = formData.restaurent_phone_nb;
+
+    if (formData.contact_email !== undefined)
+        contact_email.value = formData.contact_email;
 }
 
 const onSubmit = handleSubmit(async (values) => {
@@ -412,11 +425,11 @@ const onSave = handleSubmit((values) => {
     border-bottom: solid 1px #d7d8e1;
 }
 .dump-space {
-    width: 50%;
+    width: 0%;
 }
 .footer-buttons {
-    width: 50%;
-    justify-content: end;
+    width: 100%;
+    justify-content: center;
 }
 /* form  Footer end*/
 

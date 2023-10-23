@@ -24,7 +24,7 @@ const store = createStore({
                 page: state.page
             }
         },
-        getProgress: state => (state.page-1)*10,
+        getProgress: state => (state.page-1)*15,
         getPageNumber: state => (state.page),
         getItemById: state => (id) => state.items.find((item) => item.id === id),
         getItem: (state, getters) => (index) => {
@@ -75,6 +75,10 @@ const store = createStore({
         },
         setItemData(state, {index, data}) {
             state.items[index] = {...data};
+        },
+        setPageNumber(state, page) {
+            state.page = page;
+
         },
         updateIngriedientsTable(state, {index, newData}) {
             const item = state.items.findIndex((item) => item.id === index);
