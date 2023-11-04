@@ -6,7 +6,7 @@ import { getFormById, setForm, setFormById } from "../services/formService";
 const store = createStore({
     state() {
         return {
-            page: 1,
+            page: 2,
             first_page: {},
             items: [],
             complated_pages: 0,
@@ -24,7 +24,7 @@ const store = createStore({
                 page: state.page
             }
         },
-        getProgress: state => (state.page-1)*15,
+        getProgress: state => Math.ceil((state.page-1) * (100/15)), 
         getPageNumber: state => (state.page),
         getItemById: state => (id) => state.items.find((item) => item.id === id),
         getItem: (state, getters) => (index) => {

@@ -263,6 +263,23 @@
         </div>
 
         <div class="from_footer">
+            <div
+                class="flex mx-5 py-3 my-auto justify-content-between"
+                v-if="EmailisAlreadyrused"
+            >
+                <div class="text-red-600">
+                    This Contact Email is already registered.
+                </div>
+                <div>
+                    <Button
+                        severity="warning"
+                        label="Resent Email"
+                        size="small"
+                        style="height: 20px"
+                    />
+                </div>
+            </div>
+
             <div class="py-5 flex mx-5">
                 <div class="footer-buttons flex">
                     <Button
@@ -271,6 +288,7 @@
                         class="w-3"
                         type="submit"
                         rounded
+                        :loading="NextButtonLoading"
                     />
                 </div>
             </div>
@@ -287,6 +305,7 @@ import { useForm } from "vee-validate";
 import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { schema } from "../../assets/list";
+import { saveFirstPage } from "../../services/formService";
 import SaveModal from "../common/SaveModal.vue";
 
 const props = defineProps({
@@ -371,10 +390,24 @@ function restoreData() {
         contact_email.value = formData.contact_email;
 }
 
+const NextButtonLoading = ref(false);
+const EmailisAlreadyrused = ref(false);
 const onSubmit = handleSubmit(async (values) => {
+    NextButtonLoading.value = true;
+
+    const data = await saveFirstPage(values);
+
+    if (data.status === "success") {
+        store.commit("setFormData", values);
+    } else if (data.status === "error") {
+        if (data.message === "Email already exists") {
+            EmailisAlreadyrused.value = true;
+        }
+    }
+    NextButtonLoading.value = false;
+
     // const data = await isEmailExist(values.contact_email);
     // console.log(data);
-    store.commit("setFormData", values);
 });
 
 const saveDialog = ref(false);

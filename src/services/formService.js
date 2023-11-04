@@ -74,7 +74,19 @@ async function isEmailExist(email) {
 }
 
 
+async function saveFirstPage(form){
+    try{
+        const { data } = await axios.post(apiEndpoint + "first/page", form);
+        return data;
+    }
+    catch(ex){
+        console.log(ex);
+       return ex.response.data;
+    }
+}
+
+
 export {
-    getFormById, isEmailExist, resendEmail, setForm, setFormById, submitFormByIdService, submitFormService
+    getFormById, isEmailExist, resendEmail, saveFirstPage, setForm, setFormById, submitFormByIdService, submitFormService
 };
 
