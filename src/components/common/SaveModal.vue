@@ -7,7 +7,6 @@ import { useToast } from "primevue/usetoast";
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
 import { resendEmail } from "../../services/formService";
-import saveIcon from "./saveIcon.vue";
 const toast = useToast();
 
 const props = defineProps({
@@ -99,7 +98,11 @@ const handleResendEmail = async () => {
                 class="flex flex-column justify-content-center align-items-center"
             >
                 <div>
-                    <saveIcon />
+                    <img
+                        src="./logo71.png"
+                        alt=""
+                        style="width: 100px; height: 100px"
+                    />
                 </div>
                 <div class="m-1">
                     <h3>Your form has been saved as a draft.</h3>

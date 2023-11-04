@@ -7,25 +7,27 @@
                     label="Back"
                     severity="secondary"
                     class="w-5"
+                    rounded
                 />
             </div>
-            <div class="footer-buttons flex" v-if="pageNb <= 10">
+            <div class="footer-buttons flex" v-if="pageNb <= 15">
                 <Button
                     label="Save and continue later"
                     severity="secondary"
                     @click="saveAndContinueLater"
                     class="mr-2"
                     size="small"
-                    style="font-size: 10px"
-                    outlined
+                    style="font-size: 12px"
+                    rounded
                 />
                 <!-- <Button label="Next" severity="info" class="w-6" /> -->
                 <Button
                     label="save and add another item"
-                    severity="success"
+                    severity="secondary"
                     @click="saveAndAddAnotherItem"
                     size="small"
-                    style="font-size: 10px"
+                    style="font-size: 12px"
+                    rounded
                 />
             </div>
             <div class="footer-buttons flex" v-else>
@@ -35,16 +37,18 @@
                     size="small"
                     style="width: 200px"
                     type="submit"
+                    rounded
                 />
             </div>
         </div>
-        <div v-if="pageNb <= 10" class="flex justify-content-center mb-2">
+        <div v-if="pageNb <= 15" class="flex justify-content-center mb-2">
             <Button
                 label="Submit"
                 severity="warning"
                 size="small"
                 style="width: 200px"
                 type="submit"
+                rounded
             />
         </div>
     </div>

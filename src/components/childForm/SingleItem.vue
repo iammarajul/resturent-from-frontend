@@ -2,16 +2,20 @@
     <div class="child_from_header">
         <div class="header_title">
             <div class="title">Menu Item {{ props.itemNumber }}</div>
-            <div class="sub_title">
-                Enter menu item details below. Ingredient names should be as
-                descriptive as possible (e.g., grilled white onions, Colby
-                cheese, 80/20 ground beef, etc.).
-            </div>
         </div>
     </div>
     <div class="from_body">
-        <pre>{{ form_data }}</pre>
-        <div class="card flex justify-content-center custom-input mx-6 my-6">
+        <div style="width: 200px; margin: 10px auto">
+            <ImageUploader
+                name="imageUploader"
+                height="100px"
+                @change="uploadFile"
+                :progress="uploadProgress"
+                :error="uploadError"
+            />
+        </div>
+
+        <div class="card flex justify-content-center custom-input mx-6 mt-5">
             <div class="flex gap-2 w-full">
                 <label for="item_name" class="w-6" style="word-break: break-all"
                     >Menu Item Name (e.g., Whopper)
@@ -26,7 +30,7 @@
             </div>
         </div>
 
-        <div class="card flex custom-input justify-content-center mx-6 my-6">
+        <div class="card flex custom-input justify-content-center mx-6 my-3">
             <div class="flex gap-2 w-full">
                 <label
                     for="item_number"
@@ -38,13 +42,14 @@
                     class="p-inputtext-sm w-8 h-2.5rem my-auto"
                     id="item_number"
                     name="item_number"
+                    type="number"
                     v-model="restaurant.manu_item_number"
                     aria-describedby="item_number"
                 />
             </div>
         </div>
 
-        <div class="card flex custom-input justify-content-center mx-6 my-6">
+        <div class="card flex custom-input justify-content-center mx-6 my-3">
             <div class="flex gap-2 w-full">
                 <label for="item_category" class="w-6"
                     >Menu Item Category</label
@@ -61,7 +66,7 @@
             </div>
         </div>
 
-        <div class="card flex mx-6 my-6 flex-column">
+        <div class="card flex mx-6 my-3 flex-column">
             <label class="mb-2" style="word-break: break-all"
                 >Ingredients
             </label>
@@ -77,7 +82,7 @@
             />
         </div>
 
-        <div class="card flex custom-input justify-content-center mx-6 my-6">
+        <div class="card flex custom-input justify-content-center mx-6 my-3">
             <div class="flex flex-column gap-2 w-full">
                 <label for="has_deep_fried"
                     >Were any ingredients deep fried?</label
@@ -109,7 +114,7 @@
 
         <div v-if="hasFriedIngredients">
             <div
-                class="card flex custom-input justify-content-center mx-6 my-6"
+                class="card flex custom-input justify-content-center mx-6 my-3"
             >
                 <div class="flex flex-column gap-2 w-full">
                     <label for="deep_fried_ingredient"
@@ -126,7 +131,7 @@
             </div>
 
             <div
-                class="card flex custom-input justify-content-center mx-6 my-6"
+                class="card flex custom-input justify-content-center mx-6 my-3"
             >
                 <div class="flex flex-column gap-2 w-full">
                     <label for="item_oil_type"
@@ -145,7 +150,7 @@
             </div>
 
             <div
-                class="card flex custom-input justify-content-center mx-6 my-6"
+                class="card flex custom-input justify-content-center mx-6 my-3"
             >
                 <div class="flex flex-column gap-2 w-full">
                     <label for="item_breaded"
@@ -164,7 +169,7 @@
             </div>
         </div>
 
-        <div class="card flex custom-input justify-content-center mx-6 my-6">
+        <div class="card flex custom-input justify-content-center mx-6 my-3">
             <div class="flex flex-column gap-2 w-full">
                 <label for="ingredients_not_listed"
                     >List any oils, seasonings, spices, and ingredients not
@@ -181,7 +186,7 @@
             </div>
         </div>
 
-        <div class="card flex custom-input justify-content-center mx-6 my-6">
+        <div class="card flex custom-input justify-content-center mx-6 my-3">
             <div class="flex flex-column gap-2 w-full">
                 <label for="item_notes">Notes:</label>
                 <Textarea
@@ -194,22 +199,19 @@
                 />
             </div>
         </div>
-        <div class="card mx-6 my-6">
-            <ProgressBar style="height: 15px" :value="progress"></ProgressBar>
-        </div>
     </div>
 </template>
 
 <script setup>
+import { itemBreadeds, itemCatagories, itemOilTypes } from "@/assets/list";
+import axios from "axios";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
-
-import { itemBreadeds, itemCatagories, itemOilTypes } from "@/assets/list";
-import ProgressBar from "primevue/progressbar";
 import RadioButton from "primevue/radiobutton";
 import Textarea from "primevue/textarea";
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
+import ImageUploader from "./ImageUploader.vue";
 import IngredienceTable from "./IngredienceTable.vue";
 
 const store = useStore();
@@ -259,6 +261,33 @@ watch(
 
 const updateIngredientTable = (data) => {
     restaurant.value.ingredientTable = data;
+};
+
+const uploadProgress = ref(null);
+const uploadError = ref(null);
+
+const uploadFile = async (file) => {
+    uploadProgress.value = 100;
+    let formData = new FormData();
+    formData.append("image", file);
+    var config = {
+        onUploadProgress: (progressEvent) => {
+            var percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+            );
+            uploadProgress.value = percentCompleted;
+        },
+    };
+    try {
+        const { data } = await axios.post(
+            "https://upload.imagekit.io/api/v1/files/upload",
+            formData,
+            config
+        );
+    } catch (e) {
+        console.log(e);
+        uploadError.value = "Error has occured";
+    }
 };
 </script>
 

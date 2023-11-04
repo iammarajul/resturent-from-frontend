@@ -1,7 +1,31 @@
 <template>
     <form class="container" @submit.prevent="submitForm">
         <SingleItem v-for="index in range" :itemNumber="index" />
+        <div class="from_progress_bar">
+            <div class="card mx-6 my-3">
+                <ProgressBar
+                    style="height: 15px"
+                    :value="progress"
+                ></ProgressBar>
 
+                <ul
+                    class="flex justify-content-between flex-wrap"
+                    style="list-style-type: none"
+                >
+                    <li v-for="index in 15" :key="index">
+                        <span
+                            @click="goToPage(index)"
+                            :class="{
+                                'active-index pagination-item':
+                                    index === currentPage - 1,
+                                'pagination-item': index !== currentPage - 1,
+                            }"
+                            >{{ index }}</span
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
         <ChildFormFooter
             :pageNb="currentPage"
             :saveAndContinueLater="saveAndContinueLater"
@@ -20,6 +44,7 @@ import SingleItem from "@/components/childForm/SingleItem.vue";
 import SaveModal from "@/components/common/SaveModal.vue";
 import _ from "lodash";
 import ConfirmDialog from "primevue/confirmdialog";
+import ProgressBar from "primevue/progressbar";
 import Toast from "primevue/toast";
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
@@ -35,6 +60,10 @@ const confirm = useConfirm();
 const toast = useToast();
 
 const store = useStore();
+
+const progress = computed(() => {
+    return store.getters.getProgress;
+});
 
 const currentPage = computed(() => store.state.page);
 const range = computed(() =>
@@ -88,6 +117,11 @@ const saveAndAddAnotherItem = () => {
 
 const updateShowModal = (value) => {
     showModal.value = value;
+};
+
+const goToPage = (page) => {
+    store.commit("setPageNumber", page + 1);
+    window.scrollTo(0, 0);
 };
 </script>
 <style scoped>
