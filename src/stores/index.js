@@ -6,7 +6,7 @@ import { getFormById, setForm, setFormById } from "../services/formService";
 const store = createStore({
     state() {
         return {
-            page: 2,
+            page: 1,
             first_page: {},
             items: [],
             complated_pages: 0,
@@ -46,7 +46,9 @@ const store = createStore({
             } else {
                 return _.cloneDeep(item.ingredientTable);
             }
-        }
+        },
+        getEmail: state => state.first_page.contact_email,
+        getShareLink: state => state.shareLink,
 
     },
     mutations: {
@@ -154,7 +156,7 @@ const store = createStore({
         async setFormByID({commit, getters, state}) {
             commit('toggleSendButtonLoading')
             commit('clearErrorMessage')
-            const data =getters.getRequestData;
+            const data = getters.getRequestData;
             const responseData = await setFormById(state.shareLink,data);
             commit('toggleSendButtonLoading')
             commit('setShareLink', responseData);

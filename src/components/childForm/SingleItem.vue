@@ -7,11 +7,12 @@
     <div class="from_body">
         <div style="width: 200px; margin: 10px auto">
             <ImageUploader
-                name="imageUploader"
+                :name="getImageUploaderName()"
                 height="100px"
                 @change="uploadFile"
                 :progress="uploadProgress"
                 :error="uploadError"
+                :baseSrc="getBaseSrc(restaurant.image_id)"
             />
         </div>
 
@@ -204,7 +205,7 @@
 
 <script setup>
 import { itemBreadeds, itemCatagories, itemOilTypes } from "@/assets/list";
-import axios from "axios";
+import { uploadImageService } from "@/services/formService";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
 import RadioButton from "primevue/radiobutton";
@@ -219,7 +220,6 @@ const store = useStore();
 const props = defineProps({
     itemNumber: {
         type: Number,
-        default: 1,
         required: true,
     },
     form_data: {
@@ -270,24 +270,38 @@ const uploadFile = async (file) => {
     uploadProgress.value = 100;
     let formData = new FormData();
     formData.append("image", file);
+    formData.append("itemNumber", props.itemNumber);
+    formData.append("userId", store.getters.getShareLink);
     var config = {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
         onUploadProgress: (progressEvent) => {
             var percentCompleted = Math.round(
                 (progressEvent.loaded * 100) / progressEvent.total
             );
+            console.log(percentCompleted);
             uploadProgress.value = percentCompleted;
         },
     };
     try {
-        const { data } = await axios.post(
-            "https://upload.imagekit.io/api/v1/files/upload",
-            formData,
-            config
-        );
+        const { data } = await uploadImageService(formData, config);
+        store.commit("updateItem", {
+            index: props.itemNumber,
+            newData: { image_id: data?.image_id },
+        });
+        uploadError.value = null;
     } catch (e) {
         console.log(e);
         uploadError.value = "Error has occured";
     }
+};
+
+const getBaseSrc = (imageID) => {
+    return imageID ? `http://localhost:5000/image/${imageID}` : "";
+};
+const getImageUploaderName = () => {
+    return `imageUploader#${props.itemNumber}`;
 };
 </script>
 

@@ -274,6 +274,8 @@
                     <Button
                         severity="warning"
                         label="Resent Email"
+                        @click="ResendEmail"
+                        :loading="ResendButtonLoading"
                         size="small"
                         style="height: 20px"
                     />
@@ -294,19 +296,20 @@
             </div>
         </div>
     </form>
-    <SaveModal @update:showModal="setSaveDialog" :showModal="saveDialog" />
+    <Toast />
 </template>
 
 <script setup>
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import ProgressBar from "primevue/progressbar";
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
 import { useForm } from "vee-validate";
 import { ref, watch } from "vue";
 import { useStore } from "vuex";
 import { schema } from "../../assets/list";
-import { saveFirstPage } from "../../services/formService";
-import SaveModal from "../common/SaveModal.vue";
+import { resendEmail, saveFirstPage } from "../../services/formService";
 
 const props = defineProps({
     formData: {
@@ -392,34 +395,48 @@ function restoreData() {
 
 const NextButtonLoading = ref(false);
 const EmailisAlreadyrused = ref(false);
+
+const SendEmailAddress = ref("");
 const onSubmit = handleSubmit(async (values) => {
     NextButtonLoading.value = true;
-
-    const data = await saveFirstPage(values);
+    const userID = store.state.shareLink;
+    const data = await saveFirstPage({ data: values, id: userID });
 
     if (data.status === "success") {
         store.commit("setFormData", values);
+        store.commit("setShareLink", data.data._id);
     } else if (data.status === "error") {
         if (data.message === "Email already exists") {
             EmailisAlreadyrused.value = true;
+            SendEmailAddress.value = values.contact_email;
         }
     }
     NextButtonLoading.value = false;
-
-    // const data = await isEmailExist(values.contact_email);
-    // console.log(data);
 });
 
-const saveDialog = ref(false);
+const ResendButtonLoading = ref(false);
+const toast = useToast();
 
-const setSaveDialog = (value) => {
-    saveDialog.value = value;
+const ResendEmail = async () => {
+    ResendButtonLoading.value = true;
+    const data = await resendEmail(SendEmailAddress.value);
+    if (data.status === "success") {
+        toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Email sent successfully",
+            life: 5000,
+        });
+    } else {
+        toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: data.message,
+            life: 5000,
+        });
+    }
+    ResendButtonLoading.value = false;
 };
-
-const onSave = handleSubmit((values) => {
-    store.commit("setFromDataWithOutIncrementPage", values);
-    setSaveDialog(true);
-});
 </script>
 
 <style scoped>

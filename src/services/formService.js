@@ -49,6 +49,7 @@ async function getFormById(id) {
     }
     catch(ex){
         console.log(ex);
+        return ex.response.data;
     }
 }
 
@@ -62,16 +63,6 @@ async function resendEmail(email) {
     }
 }
 
-async function isEmailExist(email) {
-    try{
-        const { data } = await axios.post(apiEndpoint + "email/exists", {email});
-        return data;
-    }
-    catch(ex){
-       return ex.response.data;
-    }
-
-}
 
 
 async function saveFirstPage(form){
@@ -85,8 +76,28 @@ async function saveFirstPage(form){
     }
 }
 
+async function uploadImageService(form,config){
+    try{
+        const { data } = await axios.post(apiEndpoint + "upload/image", form, config);
+        return data;
+    }
+    catch(ex){
+       return ex.response.data;
+    }
+}
+
+
+async function getShareableLink(id,form){
+    try{
+        const { data } = await axios.post(apiEndpoint + "shareablelink/" + id, form);
+        return data;
+    }
+    catch(ex){
+        return ex.response.data;
+    }
+}
 
 export {
-    getFormById, isEmailExist, resendEmail, saveFirstPage, setForm, setFormById, submitFormByIdService, submitFormService
+    getFormById, getShareableLink, resendEmail, saveFirstPage, setForm, setFormById, submitFormByIdService, submitFormService, uploadImageService
 };
 

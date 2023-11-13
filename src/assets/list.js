@@ -1,16 +1,4 @@
 import * as yup from 'yup';
-// import "yup-phone";
-
-
-const checkEmail = async (value) => {
-    return true;
-    // const data = await isEmailExist(value);
-    // if(data.status === "success"){
-    //     return false;
-    // }else{
-    //     return true;
-    // }
-}
 
 const schema = yup.object({
     restaurant_name: yup.string().required(),
@@ -21,7 +9,7 @@ const schema = yup.object({
     restaurent_location_nb: yup.number().typeError("this must be a valid number").required(),
     first_name: yup.string().required(),
     last_name: yup.string().required(),
-    contact_email: yup.string().required().email().test('contact_email', 'Email is already registered', checkEmail),
+    contact_email: yup.string().required().email(),
     restaurent_phone_nb: yup.string().required(),
 
 });

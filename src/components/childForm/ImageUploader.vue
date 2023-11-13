@@ -1,6 +1,6 @@
 <template>
     <div :style="style" class="image-uploader">
-        <div v-if="!src" class="add_image_button">
+        <div v-if="!src && !baseSrc" class="add_image_button">
             <img src=".\4211763.png" height="50" width="60" />
         </div>
         <label :for="name">
@@ -10,7 +10,6 @@
             <div v-else-if="src" class="overlay">Change Photo</div>
         </label>
         <input
-            ref="inputFile"
             :id="name"
             :name="name"
             type="file"
@@ -95,15 +94,15 @@ export default {
                 var reader = new FileReader();
                 reader.onload = (e) => {
                     this.src = e.target.result;
-                    const $event = {
-                        // data: e.target.result.replace(/^data:image\/[a-z]+;base64,/, ''),
-                        file: event.target.files[0],
-                        field: this.name,
-                    };
-                    this.$emit("change", $event);
+                    this.$emit("change", event.target.files[0]);
                 };
                 reader.readAsDataURL(event.target.files[0]);
             }
+        },
+    },
+    watch: {
+        name() {
+            this.src = null;
         },
     },
 };
@@ -121,6 +120,7 @@ export default {
     background: white;
     position: relative;
     // border: 1px solid #aaa;
+    background-size: 200px 100px !important;
     overflow: hidden;
     label {
         cursor: pointer;

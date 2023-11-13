@@ -6,7 +6,7 @@ import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
-import { resendEmail } from "../../services/formService";
+import { getShareableLink, setFormById } from "../../services/formService";
 const toast = useToast();
 
 const props = defineProps({
@@ -23,21 +23,12 @@ const modalValue = computed({
     get: () => props.showModal,
     set: (value) => {
         store.commit("clearErrorMessage");
+        shareLink.value = null;
         emits("update:showModal", value);
     },
 });
 
 const SendEmail = ref(store.state.first_page.contact_email);
-
-const errorMessage = ref(store.state.errorMessage);
-
-watch(
-    () => store.state.errorMessage,
-    (newValue, oldValue) => {
-        errorMessage.value = newValue;
-    },
-    { deep: true }
-);
 
 watch(
     () => store.state.first_page.contact_email,
@@ -47,39 +38,53 @@ watch(
     { deep: true }
 );
 
-watch(
-    () => store.state.sendButtonLoading,
-    (newValue, oldValue) => {
-        sendButtonLoading.value = newValue;
-    }
-);
-
 const sendButtonLoading = ref(false);
-const sendData = () => {
-    store.state.shareLink !== ""
-        ? store.dispatch("setFormByID")
-        : store.dispatch("setFormByEmail");
+const sendData = async () => {
+    sendButtonLoading.value = true;
+    const data = store.getters.getRequestData;
+    const userId = store.getters.getShareLink;
+    const responseData = await setFormById(userId, data);
+    if (responseData.status === "success") {
+        toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Email sent successfully",
+            life: 5000,
+        });
+    } else {
+        toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: responseData.message || `Something went wrong`,
+            life: 5000,
+        });
+    }
+    sendButtonLoading.value = false;
 };
 
-const resendEmailLoading = ref(false);
-const handleResendEmail = async () => {
-    try {
-        resendEmailLoading.value = true;
-        const result = await resendEmail(store.state.first_page.contact_email);
-        console.log(result);
-        if (result.status === "success") {
-            console.log("success");
-            toast.add({
-                severity: "success",
-                summary: "Success",
-                detail: "Email sent successfully",
-                life: 3000,
-            });
-        }
-        resendEmailLoading.value = false;
-    } catch (err) {
-        console.log(err);
-        resendEmailLoading.value = false;
+const shareButtonLoading = ref(false);
+const shareLink = ref(null);
+const handleGetShareableLink = async () => {
+    shareButtonLoading.value = true;
+    const data = store.getters.getRequestData;
+    const userId = store.getters.getShareLink;
+    const responseData = await getShareableLink(userId, data);
+    if (responseData.status === "success") {
+        // console.log(responseData.data);
+        shareLink.value = responseData.data.shareLink;
+        toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Link copied to clipboard",
+            life: 5000,
+        });
+    } else {
+        toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: responseData.message || `Something went wrong`,
+            life: 5000,
+        });
     }
 };
 </script>
@@ -136,10 +141,6 @@ const handleResendEmail = async () => {
                     </div>
                 </div>
 
-                <small class="p-error" id="text-error" v-if="errorMessage != ''"
-                    >This Email already have data please check email to continue
-                </small>
-
                 <div class="m-1 flex w-full justify-content-center">
                     <Button
                         size="small"
@@ -147,20 +148,16 @@ const handleResendEmail = async () => {
                         icon="pi pi-link"
                         color="black"
                         style="border: 1px solid #c3cad8"
-                        v-if="errorMessage == ''"
-                    />
-                    <Button
-                        v-else
-                        size="small"
-                        severity="warning"
-                        label="Resend Link"
-                        icon="pi pi-link"
-                        color="black"
-                        :loading="resendEmailLoading"
-                        style="border: 1px solid #c3cad8"
-                        @click="handleResendEmail"
+                        @click="handleGetShareableLink"
                     />
                 </div>
+                <input
+                    id="copyInput"
+                    v-if="shareLink !== null"
+                    style="width: 100%"
+                    type="text"
+                    :value="shareLink"
+                />
             </div>
         </div>
     </Dialog>
