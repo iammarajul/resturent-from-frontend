@@ -93,7 +93,7 @@ const SubmitSuccess = () => {
         header: "Confirmation",
         icon: "pi pi-exclamation-triangle",
         accept: () => {
-            window.location.href = "http://localhost:8080/";
+            window.location.href = "http://13.229.111.146:8080/";
         },
     });
 };

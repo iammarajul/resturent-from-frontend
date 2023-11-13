@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiEndpoint = "http://localhost:5000/api/";
+const apiEndpoint = "http://13.229.111.146:5000/api/";
 
 async function setForm(form) {
     try{

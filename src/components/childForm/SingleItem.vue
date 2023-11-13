@@ -298,7 +298,7 @@ const uploadFile = async (file) => {
 };
 
 const getBaseSrc = (imageID) => {
-    return imageID ? `http://localhost:5000/image/${imageID}` : "";
+    return imageID ? `http://13.229.111.146:5000/image/${imageID}` : "";
 };
 const getImageUploaderName = () => {
     return `imageUploader#${props.itemNumber}`;
