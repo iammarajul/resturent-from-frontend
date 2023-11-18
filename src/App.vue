@@ -1,13 +1,11 @@
 <script setup>
+import ProgressSpinner from "primevue/progressspinner";
 import { ref } from "vue";
 import { useStore } from "vuex";
 import HomePage from "./pages/HomePage.vue";
 import { getFormById } from "./services/formService";
 
-import ConfirmDialog from "primevue/confirmdialog";
-import ProgressSpinner from "primevue/progressspinner";
-import { useConfirm } from "primevue/useconfirm";
-const confirm = useConfirm();
+import SubmitModal from "./components/common/SubmitModal.vue";
 
 //get query param id from url
 function getQueryParameters(url) {
@@ -25,7 +23,7 @@ const queryParams = getQueryParameters(window.location.href);
 const store = useStore();
 
 const mainLoader = ref(false);
-
+const alreadysubmitted = ref(false);
 const checkIfSaved = async () => {
     if (queryParams.id) {
         store.commit("setShareLink", queryParams.id);
@@ -36,7 +34,7 @@ const checkIfSaved = async () => {
         } else if (restaurentData.status === "error") {
             if (restaurentData.message === "Form already submitted") {
                 console.log("Form already submitted");
-                SubmitSuccess();
+                alreadysubmitted.value = true;
             }
         }
         // store.dispatch("getFormWithId", queryParams.id);
@@ -44,15 +42,9 @@ const checkIfSaved = async () => {
     }
 };
 
-const SubmitSuccess = () => {
-    confirm.require({
-        message: "Form Already Submited!",
-        header: "Confirmation",
-        icon: "pi pi-exclamation-triangle",
-        accept: () => {
-            window.location.href = "http://13.229.111.146:8080/";
-        },
-    });
+const onHideandGotoHome = (value) => {
+    alreadysubmitted.value = value;
+    window.location.href = "/";
 };
 
 checkIfSaved();
@@ -63,6 +55,9 @@ checkIfSaved();
             <ProgressSpinner aria-label="Loading" />
         </div>
         <HomePage v-else />
-        <ConfirmDialog />
+        <SubmitModal
+            :visible="alreadysubmitted"
+            @update:visible="onHideandGotoHome"
+        />
     </div>
 </template>
