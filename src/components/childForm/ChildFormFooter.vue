@@ -22,7 +22,7 @@
                 />
                 <!-- <Button label="Next" severity="info" class="w-6" /> -->
                 <Button
-                    label="save and add another item"
+                    label="Save and go to next page"
                     severity="secondary"
                     @click="saveAndAddAnotherItem"
                     size="small"
