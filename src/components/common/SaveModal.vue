@@ -86,6 +86,7 @@ const handleGetShareableLink = async () => {
             life: 5000,
         });
     }
+    shareButtonLoading.value = false;
 };
 </script>
 
@@ -148,6 +149,7 @@ const handleGetShareableLink = async () => {
                         icon="pi pi-link"
                         color="black"
                         style="border: 1px solid #c3cad8"
+                        :loading="shareButtonLoading"
                         @click="handleGetShareableLink"
                     />
                 </div>

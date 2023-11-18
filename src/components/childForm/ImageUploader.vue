@@ -120,7 +120,7 @@ export default {
     background: white;
     position: relative;
     // border: 1px solid #aaa;
-    background-size: 200px 100px !important;
+
     overflow: hidden;
     label {
         cursor: pointer;

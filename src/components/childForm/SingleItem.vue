@@ -92,7 +92,7 @@
                     <RadioButton
                         v-model="restaurant.has_deep_fried"
                         inputId="ingredient1"
-                        id="has_deep_fried"
+                        id="has_deep_fried_yes"
                         name="has_deep_fried"
                         value="yes"
                         @click="hasFriedIngredients = true"
