@@ -23,89 +23,65 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "ImageChooser",
-    props: {
-        name: {
-            required: true,
-            type: String,
-        },
-        baseSrc: {
-            type: String,
-            default: "",
-        },
-        height: {
-            type: String,
-            default: "350px",
-        },
-        displayName: {
-            type: String,
-            default: "Add Photo",
-        },
-        error: {
-            default: null,
-            validator: function (value) {
-                return (
-                    value === null ||
-                    Array.isArray(value) ||
-                    typeof value === "string"
-                );
-            },
-        },
-        progress: {
-            type: Number,
-            default: null,
-        },
-    },
-    data() {
-        return {
-            src: null,
+<script setup>
+import { computed, defineEmits, defineProps, ref, watch } from "vue";
+
+const props = defineProps([
+    "name",
+    "baseSrc",
+    "height",
+    "displayName",
+    "error",
+    "progress",
+]);
+
+const emit = defineEmits();
+
+const src = ref(null);
+
+const normalizedErrors = computed(() => {
+    if (typeof props.error === "string") return [props.error];
+    if (Array.isArray(props.error)) return [...props.error];
+    return [];
+});
+
+const uploading = computed(
+    () => props.progress !== null && props.progress !== 100
+);
+
+const style = computed(() => {
+    let containerStyle = {
+        height: props.height,
+    };
+    if (src.value || props.baseSrc) {
+        containerStyle.backgroundImage = `url(${src.value || props.baseSrc})`;
+        containerStyle.backgroundSize = "contain"; // Adjusted this line
+        containerStyle.backgroundRepeat = "no-repeat";
+        containerStyle.backgroundPosition = "center center";
+    }
+    if (props.error) {
+        containerStyle.border = "1px solid red";
+    }
+    return containerStyle;
+});
+
+const displayFile = (event) => {
+    if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            src.value = e.target.result;
+            emit("change", event.target.files[0]);
         };
-    },
-    computed: {
-        normalizedErrors() {
-            if (typeof this.error === "string") return [this.error];
-            if (this.error instanceof Array) return [...this.error];
-            return [];
-        },
-        uploading() {
-            return this.progress !== null && this.progress !== 100;
-        },
-        style() {
-            let containerStyle = {
-                height: this.height,
-            };
-            if (this.src || this.baseSrc) {
-                containerStyle.backgroundImage = `url(${
-                    this.src || this.baseSrc
-                })`;
-                containerStyle.backgroundSize = "cover";
-            }
-            if (this.error) {
-                containerStyle.border = "1px solid red";
-            }
-            return containerStyle;
-        },
-    },
-    methods: {
-        displayFile(event) {
-            if (event.target.files && event.target.files[0]) {
-                var reader = new FileReader();
-                reader.onload = (e) => {
-                    this.src = e.target.result;
-                    this.$emit("change", event.target.files[0]);
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            }
-        },
-    },
-    watch: {
-        name() {
-            this.src = null;
-        },
-    },
+        reader.readAsDataURL(event.target.files[0]);
+    }
 };
+
+watch(
+    () => props.name,
+    () => {
+        src.value = null;
+    }
+);
 </script>
 
 <style scoped lang="scss">
