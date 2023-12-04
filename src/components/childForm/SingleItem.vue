@@ -267,7 +267,7 @@ const uploadProgress = ref(null);
 const uploadError = ref(null);
 
 const uploadFile = async (file) => {
-    uploadProgress.value = 100;
+    uploadProgress.value = 0;
     let formData = new FormData();
     formData.append("image", file);
     formData.append("itemNumber", props.itemNumber);
