@@ -212,6 +212,7 @@ import RadioButton from "primevue/radiobutton";
 import Textarea from "primevue/textarea";
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
+import env from "../../assets/env";
 import ImageUploader from "./ImageUploader.vue";
 import IngredienceTable from "./IngredienceTable.vue";
 
@@ -298,7 +299,7 @@ const uploadFile = async (file) => {
 };
 
 const getBaseSrc = (imageID) => {
-    return imageID ? `http://13.229.111.146:5000/image/${imageID}` : "";
+    return imageID ? `${env.apiEndpoint}image/${imageID}` : "";
 };
 const getImageUploaderName = () => {
     return `imageUploader#${props.itemNumber}`;

@@ -9,6 +9,7 @@ import { createApp } from 'vue';
 import VueImageChooser from 'vue-image-chooser';
 import App from './App.vue';
 import "./assets/style.css";
+import router from "./routes";
 import store from './stores';
 
 
@@ -16,6 +17,7 @@ import store from './stores';
 
 
 const app = createApp(App)
+app.use(router);
 app.use(PrimeVue);
 app.use(store);
 app.use(ToastService);

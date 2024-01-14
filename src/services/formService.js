@@ -1,6 +1,7 @@
 import axios from 'axios';
+import env from '../assets/env.js';
 
-const apiEndpoint = "http://13.229.111.146:5000/api/";
+const apiEndpoint = env.apiEndpoint+"api/";
 
 async function setForm(form) {
     try{
