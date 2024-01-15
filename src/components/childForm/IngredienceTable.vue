@@ -124,7 +124,7 @@ function addIngredient() {
     if (newIngredient.value.weight && newIngredient.value.name) {
         const copyIngredient = [...ingredients.value];
         copyIngredient.push({ ...newIngredient.value });
-        console.log("copy", copyIngredient);
+        // console.log("copy", copyIngredient);
         ingredients.value = copyIngredient;
         newIngredient.value.weight = "";
         newIngredient.value.name = "";

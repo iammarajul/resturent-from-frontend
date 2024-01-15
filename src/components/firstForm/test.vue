@@ -35,7 +35,7 @@ function validateField(value) {
 
 const onSubmit = handleSubmit((values) => {
     if (values.value && values.value.length > 0) {
-        console.log(values.value);
+        // console.log(values.value);
         resetForm();
     }
 });
