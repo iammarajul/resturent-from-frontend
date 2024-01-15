@@ -37,12 +37,27 @@
             <!-- <Column expander style="width: 5rem" /> -->
             <Column header="Image">
                 <template #body="slotProps">
-                    <img
-                        :src="getBaseSrc(slotProps.data.image_id)"
-                        :alt="slotProps.data.image"
-                        class="w-6rem shadow-2 border-round"
-                        style="object-fit: cover; height: 6rem"
-                    />
+                    <Image alt="Image" preview>
+                        <template #indicatoricon>
+                            <i class="pi pi-search"></i>
+                        </template>
+                        <template #image>
+                            <img
+                                :src="getBaseSrc(slotProps.data.image_id)"
+                                :alt="slotProps.data.image_id"
+                                class="w-6rem shadow-2 border-round"
+                                style="object-fit: cover; height: 6rem"
+                            />
+                        </template>
+                        <template #preview="slotProps2">
+                            <img
+                                :src="getBaseSrc(slotProps.data.image_id)"
+                                :alt="slotProps.data.image_id"
+                                :style="slotProps2.style"
+                                @click="slotProps2.onClick"
+                            />
+                        </template>
+                    </Image>
                 </template>
             </Column>
             <Column field="manu_item_name" header="Name"></Column>
@@ -91,6 +106,7 @@
 import FileSaver from "file-saver";
 import Column from "primevue/column";
 import DataTable from "primevue/datatable";
+import Image from "primevue/image";
 import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
 import { ref } from "vue";
@@ -109,7 +125,7 @@ const onload = async () => {
     loadingDataTable.value = true;
     const data = await getFormById(routeParams.value.id);
     if (data.status == "success") {
-        console.log(data);
+        // console.log(data);
         fistpageData.value = data.data.first_page;
         products.value = data.data.items;
     }
@@ -129,13 +145,13 @@ const expandAll = () => {
         (acc, p) => (acc[p.id] = true) && acc,
         {}
     );
-    console.log(expandedRows.value);
+    // console.log(expandedRows.value);
 };
 const collapseAll = () => {
     expandedRows.value = null;
 };
 const exportToXLSX = () => {
-    console.log("exporting");
+    // console.log("exporting");
     const workbook = XLSX.utils.book_new();
     const worksheet1 = XLSX.utils.json_to_sheet(
         [

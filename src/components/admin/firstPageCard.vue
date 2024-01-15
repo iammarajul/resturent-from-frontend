@@ -6,7 +6,44 @@
                     class="flex flex-wrap align-items-center justify-content-between gap-2"
                 >
                     <span class="text-xl text-900 font-bold">
-                        <Breadcrumb :home="home" :model="items" />
+                        <div class="card flex justify-content-center">
+                            <Breadcrumb :home="home" :model="items">
+                                <template #item="{ item, props }">
+                                    <router-link
+                                        v-if="item.route"
+                                        v-slot="{ href, navigate }"
+                                        :to="item.route"
+                                        custom
+                                    >
+                                        <a
+                                            :href="href"
+                                            @click="navigate"
+                                            style="text-decoration: none"
+                                        >
+                                            <span
+                                                :class="[
+                                                    item.icon,
+                                                    'text-color',
+                                                ]"
+                                            />
+                                            <span
+                                                class="text-primary font-semibold"
+                                                >{{ item.label }}</span
+                                            >
+                                        </a>
+                                    </router-link>
+                                    <a
+                                        v-else
+                                        :href="item.url"
+                                        :target="item.target"
+                                    >
+                                        <span class="text-color">{{
+                                            item.label
+                                        }}</span>
+                                    </a>
+                                </template>
+                            </Breadcrumb>
+                        </div>
                     </span>
                     <span class="text-xl text-900 font-bold">
                         <Button @click="props.exportFunction">Export</Button>
@@ -14,8 +51,8 @@
                 </div>
             </template>
             <template #content>
-                <div class="restaurant-info">
-                    <div class="column">
+                <div class="formgrid grid mx-4">
+                    <div class="field col">
                         <div class="info-label">Restaurant Name:</div>
                         <div class="info-value">
                             {{ firstPageData.restaurant_name }}
@@ -36,7 +73,7 @@
                             {{ firstPageData.restaurent_address_1 }}
                         </div>
                     </div>
-                    <div class="column">
+                    <div class="field col">
                         <div class="info-label">Address 2:</div>
                         <div class="info-value">
                             {{ firstPageData.restaurent_address_2 }}
@@ -53,7 +90,7 @@
                         </div>
                     </div>
 
-                    <div class="column">
+                    <div class="field col">
                         <div class="info-label">Contact Person:</div>
                         <div class="info-value">
                             {{ firstPageData.first_name }}
@@ -89,8 +126,12 @@ import { ref } from "vue";
 
 const home = ref({
     icon: "pi pi-home",
+    route: "/",
 });
-const items = ref([{ label: "Admin" }, { label: "Restaurent Information" }]);
+const items = ref([
+    { label: "Admin", route: "/admin" },
+    { label: "Restaurants Information" },
+]);
 
 const props = defineProps({
     firstPageData: {
