@@ -73,7 +73,7 @@
             <Column field="item_breaded.name" header="Breaded or Battered" />
             <Column
                 field="ingredients_not_listed"
-                header="ingredients not listed"
+                header="Ingredients not listed"
             />
             <Column
                 field="item_notes"
