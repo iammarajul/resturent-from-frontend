@@ -130,7 +130,7 @@ const home = ref({
 });
 const items = ref([
     { label: "Admin", route: "/admin" },
-    { label: "Restaurants Information" },
+    { label: "Restaurant Information" },
 ]);
 
 const props = defineProps({

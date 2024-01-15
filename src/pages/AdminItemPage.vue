@@ -33,7 +33,7 @@
                     /> -->
                 <!-- </div> -->
             </template>
-            <Column field="id" header="serial" style="width: 2rem"></Column>
+            <Column field="id" header="No" style="width: 2rem"></Column>
             <!-- <Column expander style="width: 5rem" /> -->
             <Column header="Image">
                 <template #body="slotProps">
@@ -61,19 +61,19 @@
                 </template>
             </Column>
             <Column field="manu_item_name" header="Name"></Column>
-            <Column field="manu_item_number" header="Number"></Column>
+            <Column field="manu_item_number" header="Item Number"></Column>
             <Column field="item_category.name" header="Category"></Column>
             <Column expander style="width: 3rem" header="Ingredients" />
-            <Column field="has_deep_fried" header="Is DeepFried" />
+            <Column field="has_deep_fried" header="Deep Fried" />
             <Column
                 field="deep_fried_ingredient"
                 header="DeepFried ingredient"
             />
             <Column field="item_oil_type.name" header="Oils used" />
-            <Column field="item_breaded.name" header="item breaded" />
+            <Column field="item_breaded.name" header="Breaded or Battered" />
             <Column
                 field="ingredients_not_listed"
-                header="ingredients_not_listed"
+                header="ingredients not listed"
             />
             <Column
                 field="item_notes"
