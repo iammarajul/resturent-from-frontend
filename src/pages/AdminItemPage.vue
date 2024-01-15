@@ -84,7 +84,7 @@
             <template #expansion="slotProps">
                 <div class="p-3">
                     <h5>
-                        Ingredidence Table for
+                        Ingredients Table for
                         {{ slotProps.data.manu_item_name }}
                     </h5>
                     <DataTable :value="slotProps.data.ingredientTable">
