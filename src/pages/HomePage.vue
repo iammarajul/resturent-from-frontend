@@ -50,7 +50,7 @@ const checkIfSaved = async () => {
             store.commit("updateState", restaurentData.data);
         } else if (restaurentData.status === "error") {
             if (restaurentData.message === "Form already submitted") {
-                console.log("Form already submitted");
+                // console.log("Form already submitted");
                 alreadysubmitted.value = true;
             }
         }

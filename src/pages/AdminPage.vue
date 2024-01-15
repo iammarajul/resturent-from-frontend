@@ -53,7 +53,7 @@ const dataTableloading = ref(false);
 onMounted(async () => {
     dataTableloading.value = true;
     const data = await getAllForms();
-    console.log(data);
+    // console.log(data);
     if (data.status === "success") {
         dataRow.value = data.data;
     }

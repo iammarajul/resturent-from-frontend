@@ -10,11 +10,11 @@ import FormBody from "./FormBody.vue";
 const restaurant = ref({});
 const updateFormData = (value) => {
     restaurant.value = value;
-    console.log(restaurant);
+    // console.log(restaurant);
 };
 
 const onSubmit = (values) => {
-    console.log(values);
+    // console.log(values);
 };
 </script>
 <style scoped>
