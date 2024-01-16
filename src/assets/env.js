@@ -1,7 +1,7 @@
 
 
 const env = {
-    apiEndpoint: "http://34.230.155.112:5000/",
+    apiEndpoint: "https://gourmetmiles.net/",
 }
 
 export default env;
