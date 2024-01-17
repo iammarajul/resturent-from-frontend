@@ -55,6 +55,7 @@
                                 :alt="slotProps.data.image_id"
                                 :style="slotProps2.style"
                                 @click="slotProps2.onClick"
+                                height="900"
                             />
                         </template>
                     </Image>
@@ -116,6 +117,7 @@ import env from "../assets/env";
 import firstPageCard from "../components/admin/firstPageCard.vue";
 import Menubar from "../components/admin/menuBar.vue";
 import { getFormById } from "../services/adminService";
+import noImage from "./noimage.png";
 const route = useRoute();
 const routeParams = ref(route.params);
 
@@ -237,6 +239,6 @@ const exportToXLSX = () => {
 };
 
 const getBaseSrc = (imageID) => {
-    return imageID ? `${env.apiEndpoint}image/${imageID}` : "";
+    return imageID ? `${env.apiEndpoint}image/${imageID}` : noImage;
 };
 </script>

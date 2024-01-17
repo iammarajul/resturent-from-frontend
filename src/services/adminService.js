@@ -25,8 +25,19 @@ async function getFormById(id) {
     }
 }
 
+async function deletebyID(id) {
+    try{
+        const { data } = await axios.delete(apiEndpoint + "/" + id);
+        return data;
+    }
+    catch(ex){
+        console.log(ex);
+        return ex.response.data;
+    }
+}
+
 export {
-    getAllForms,
+    deletebyID, getAllForms,
     getFormById
 };
 
