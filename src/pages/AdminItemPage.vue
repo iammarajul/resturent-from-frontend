@@ -145,8 +145,21 @@ const onload = async () => {
 onload();
 
 const products = ref();
+const expandedRows = ref([]);
 const toast = useToast();
 
+const onRowExpand = (event) => {};
+const onRowCollapse = (event) => {};
+const expandAll = () => {
+    expandedRows.value = products.value.reduce(
+        (acc, p) => (acc[p.id] = true) && acc,
+        {}
+    );
+    // console.log(expandedRows.value);
+};
+const collapseAll = () => {
+    expandedRows.value = null;
+};
 const exportToXLSX = () => {
     // console.log("exporting");
     const workbook = XLSX.utils.book_new();
