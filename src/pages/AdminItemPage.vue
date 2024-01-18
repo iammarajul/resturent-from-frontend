@@ -15,6 +15,7 @@
             paginator
             :rows="5"
             :rowsPerPageOptions="[5, 10, 20, 50]"
+            :loading="loadingDataTable"
         >
             <template #header>
                 Item Table
@@ -130,6 +131,13 @@ const onload = async () => {
         // console.log(data);
         fistpageData.value = data.data.first_page;
         products.value = data.data.items;
+    } else {
+        toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Error in loading data",
+            life: 3000,
+        });
     }
     loadingDataTable.value = false;
 };
@@ -137,21 +145,8 @@ const onload = async () => {
 onload();
 
 const products = ref();
-const expandedRows = ref([]);
 const toast = useToast();
 
-const onRowExpand = (event) => {};
-const onRowCollapse = (event) => {};
-const expandAll = () => {
-    expandedRows.value = products.value.reduce(
-        (acc, p) => (acc[p.id] = true) && acc,
-        {}
-    );
-    // console.log(expandedRows.value);
-};
-const collapseAll = () => {
-    expandedRows.value = null;
-};
 const exportToXLSX = () => {
     // console.log("exporting");
     const workbook = XLSX.utils.book_new();
