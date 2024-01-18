@@ -18,11 +18,7 @@
                     >
                 </div>
             </template>
-            <Column field="_id" header="Serial">
-                <template #body="slotProps">
-                    {{ getSerialNumber() }}
-                </template>
-            </Column>
+            <Column field="no" header="No"></Column>
             <Column field="first_name" header="First Name"></Column>
             <Column field="restaurant_name" header="Restaurent Name"></Column>
             <Column field="contact_email" header="contact_email"></Column>
