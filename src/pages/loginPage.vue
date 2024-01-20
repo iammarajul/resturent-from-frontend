@@ -47,7 +47,10 @@ const email = ref("");
 const password = ref("");
 
 const login = () => {
-    if (email.value === "esaayamini@gmail.com" && password.value === "admin") {
+    if (
+        email.value === "esaayamini@gmail.com" &&
+        password.value === "D!g!t!z3MyM3nU"
+    ) {
         const token = {
             email: email.value,
             password: password.value,
